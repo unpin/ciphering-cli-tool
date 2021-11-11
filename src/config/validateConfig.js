@@ -41,7 +41,7 @@ export default function validateConfig(optionsArray) {
         if (cipher.encodingFlagRequired) {
             if (!encodingFlag) {
                 throw new Error(
-                    `Cipher ${cipher.class} requires an encoding flag`
+                    `Cipher ${cipher.className} requires an encoding flag`
                 );
             }
             if (!encodingFlag.match(ENCODING_FLAG_REGEX)) {
