@@ -13,7 +13,7 @@ Ciphering CLI Tool provides the easiest way to protect valuable information. Com
 ```
 Options
 
--c, --config            [Required] Configuration string with the        [string]
+-c, --config            [Required] Configuration string with the            [string]
                         pattern "XY-XY" where "X" stands for the cipher
                         and "Y" for the encoding/decoding.
 
@@ -22,14 +22,19 @@ Options
                             "A" is the Atbash cipher
                             "R" is the ROT-8 cipher
 
-                        "Y" can either be "0" for decoding information
-                        or "1" for encoding information.
+                        "Y" can either be:
+                            "0" for decoding information, or
+                            "1" for encoding information.
+                        Note: "Y" flag must not be provided
+                        for "A" cipher.
 
-                        Note:
-                        "Y" flag should not be provided for "A" cipher.
+-i, --input             [Optional] Source for readable stream.              [string]
+                        Note: process.stdin will be used as the underlying
+                        input source if not provided.
 
--i, --input             [Optional] Source for readable stream           [string]
--o, --output            [Optional] Destination file                     [string]
+-o, --output            [Optional] Destination for writable stream.         [string]
+                        Note: process.stdout will be used as the
+                        output destination if not provided.
 ```
 
 ## Usage
