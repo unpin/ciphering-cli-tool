@@ -2,7 +2,7 @@
     "name": "rs-school",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "cipher-cli.js",
     "type": "module",
     "scripts": {
         "start": "node cipher-cli.js -c C1-R1-A -i ./input.txt -o ./output.txt"
