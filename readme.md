@@ -42,9 +42,9 @@ Options
 ### Example
 
 ```bash
-node cipher-cli.js -c "C1-A-R0" -i ./path-to-file -o ./path-to-file
-node cipher-cli.js -c "C1-A-R0" -i ./path-to-file
-node cipher-cli.js -c "C1-A-R0" -o ./path-to-file
+node cipher-cli.js -c "C1-A-R0" -i ./path/to/file -o ./path/to/file
+node cipher-cli.js -c "C1-A-R0" -i ./path/to/file
+node cipher-cli.js -c "C1-A-R0" -o ./path/to/file
 node cipher-cli.js -c "C0-R1-A"
 ```
 
