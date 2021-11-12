@@ -30,7 +30,7 @@ Options
 
 -i, --input             [Optional] Source for readable stream.              [string]
                         Note: process.stdin will be used as the underlying
-                        input source if not provided.
+                        resource if not provided.
 
 -o, --output            [Optional] Destination for writable stream.         [string]
                         Note: process.stdout will be used as the
