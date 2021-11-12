@@ -20,7 +20,7 @@ export default class FileReader extends Readable {
         fs.stat(this.filename, (err, stats) => {
             if (err) {
                 return callback(
-                    new Error('File does not exist. Try another file.')
+                    new Error(`Source file ${this.filename} does not exist.`)
                 );
             }
             fs.open(this.filename, (err, fd) => {
