@@ -18,6 +18,13 @@ export function parser(args, { supportedOptions } = {}) {
                 );
             }
 
+            if (!value || value.trim() === '') {
+                throw new ArgumentError(
+                    `Option ${option} requires a value.`,
+                    ExitCodeConstants.INVALID_ARGUMENT
+                );
+            }
+
             let optionName = removeDashes(option);
 
             if (supportedOptions) {
