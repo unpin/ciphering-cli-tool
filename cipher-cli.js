@@ -32,7 +32,7 @@ const supportedOptions = [
 function app(args) {
     try {
         const streamArray = [];
-        const { config, input, output, help } = argParser(args, {
+        const { config, input, output } = argParser(args, {
             supportedOptions,
         });
         const transformStreams = parseConfig(config);
