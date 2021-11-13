@@ -73,7 +73,7 @@ export function parser(args, { supportedOptions } = {}) {
         for (const option of requiredOptions) {
             if (!optionMap.has(option.name)) {
                 throw new ArgumentError(
-                    `"--${option.name}" option is required but not provided.`
+                    `"The "--${option.name}" option is required but not provided.`
                 );
             }
         }
