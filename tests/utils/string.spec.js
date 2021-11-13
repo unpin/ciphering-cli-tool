@@ -3,7 +3,7 @@ import {
     isLetter,
     mirrorLetter,
     shiftLetter,
-} from '../src/utils/string.js';
+} from '../../src/utils/string.js';
 
 describe('isUppercase() function', () => {
     test('should return true if passed char is uppercase', () => {
