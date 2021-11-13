@@ -5,6 +5,7 @@ const EXIT_CODES = {
     UNKNOWN_ERROR: 255,
 };
 
+Object.freeze(EXIT_CODES);
 Object.seal(EXIT_CODES);
 
 export default EXIT_CODES;
