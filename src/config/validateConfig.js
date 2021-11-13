@@ -1,6 +1,7 @@
 import CaesarTransform from '../transforms/CaesarTransform.js';
 import AtbashTransform from '../transforms/AtbashTransform.js';
 import ROT8Transform from '../transforms/ROT8Transform.js';
+import InvalidConfigError from '../errors/config/InvalidConfigError.js';
 
 const ENCODING_FLAG_REGEX = /^[0-1]$/;
 const SUPPORTED_TRANSFORM_STREAMS = [
@@ -28,29 +29,36 @@ export default function validateConfig(optionsArray) {
     for (const option of optionsArray) {
         const [cipherChar, encodingFlag, ...rest] = option;
         if (rest.length > 0)
-            throw new Error(`Invalid cipher config: ${option}`);
-        if (!cipherChar) throw new Error('Invalid configuration string');
+            throw new InvalidConfigError(`Invalid cipher config: ${option}.`);
+        if (!cipherChar)
+            throw new InvalidConfigError(
+                'Invalid configuration string provided.'
+            );
 
         const cipher = SUPPORTED_TRANSFORM_STREAMS.find(
             (c) => c.cipherChar === cipherChar
         );
         if (!cipher) {
-            throw new Error(`Cipher ${cipherChar} is not supported`);
+            throw new InvalidConfigError(
+                `Cipher ${cipherChar} is not supported.`
+            );
         }
 
         if (cipher.encodingFlagRequired) {
             if (!encodingFlag) {
-                throw new Error(
-                    `Cipher ${cipher.className} requires an encoding flag`
+                throw new InvalidConfigError(
+                    `Cipher ${cipher.className} requires an encoding flag.`
                 );
             }
             if (!encodingFlag.match(ENCODING_FLAG_REGEX)) {
-                throw new Error(`Invalid encoding flag ${option}`);
+                throw new InvalidConfigError(
+                    `Invalid encoding flag ${option}.`
+                );
             }
         } else {
             if (encodingFlag) {
-                throw new Error(
-                    `Cipher ${cipher.className} does not require an encoding flag`
+                throw new InvalidConfigError(
+                    `Cipher ${cipher.className} does not require an encoding flag.`
                 );
             }
         }

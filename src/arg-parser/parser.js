@@ -1,3 +1,8 @@
+import ExitCodeConstants from '../errors/ExitCodeConstants.js';
+import ArgumentError from '../errors/arguments/ArgumentError.js';
+import InvalidOptionError from '../errors/arguments/InvalidOptionError.js';
+import DuplicateArgumentError from '../errors/arguments/DuplicateArgumentError.js';
+
 export function parser(args, { supportedOptions } = {}) {
     function parse(args) {
         const optionMap = new Map();
@@ -7,20 +12,29 @@ export function parser(args, { supportedOptions } = {}) {
             const value = args[i++];
 
             if (!isOptionValid(option)) {
-                throw new Error(`Option ${option} is not valid.`);
+                throw new InvalidOptionError(
+                    `Option ${option} is not valid.`,
+                    ExitCodeConstants.INVALID_ARGUMENT
+                );
             }
 
             let optionName = removeDashes(option);
 
             if (supportedOptions) {
                 if (!isOptionSupported(optionName)) {
-                    throw new Error(`Option ${option} is not supported.`);
+                    throw new InvalidOptionError(
+                        `Option ${option} is not supported.`,
+                        ExitCodeConstants.INVALID_ARGUMENT
+                    );
                 }
                 optionName = getSupportedOptionName(option);
             }
 
             if (optionMap.has(optionName)) {
-                throw new Error(`Option ${option} is duplicated.`);
+                throw new DuplicateArgumentError(
+                    `Option ${option} is duplicated.`,
+                    ExitCodeConstants.INVALID_ARGUMENT
+                );
             }
 
             optionMap.set(optionName, value);
@@ -51,8 +65,8 @@ export function parser(args, { supportedOptions } = {}) {
 
         for (const option of requiredOptions) {
             if (!optionMap.has(option.name)) {
-                throw new Error(
-                    `Option ${option.name} [${option.aliases}] is required but not provided.`
+                throw new ArgumentError(
+                    `"--${option.name}" option is required but not provided.`
                 );
             }
         }

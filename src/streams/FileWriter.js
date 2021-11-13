@@ -1,5 +1,8 @@
 import { Writable } from 'stream';
 import fs from 'fs';
+import ExitCodeConstants from '../errors/ExitCodeConstants.js';
+import IOError from '../errors/io/IOError.js';
+import FileNotFoundError from '../errors/io/FileNotFoundError.js';
 
 export default class FileWriterStream extends Writable {
     constructor(filename) {
@@ -11,14 +14,20 @@ export default class FileWriterStream extends Writable {
         fs.stat(this.filename, (err, stats) => {
             if (err) {
                 return callback(
-                    new Error(
-                        `Destination file ${this.filename} does not exist.`
+                    new FileNotFoundError(
+                        `Provided destination file "${this.filename}" does not exist.`,
+                        ExitCodeConstants.INVALID_ARGUMENT
                     )
                 );
             }
             fs.open(this.filename, 'a', (err, fd) => {
                 if (err) {
-                    callback(err);
+                    callback(
+                        new IOError(
+                            `Could not open the file. "${this.filename}"`,
+                            ExitCodeConstants.INVALID_ARGUMENT
+                        )
+                    );
                 } else {
                     this.fd = fd;
                     callback();

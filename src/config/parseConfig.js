@@ -2,6 +2,8 @@ import CaesarTransform from '../transforms/CaesarTransform.js';
 import AtbashTransform from '../transforms/AtbashTransform.js';
 import ROT8Transform from '../transforms/ROT8Transform.js';
 import validateConfig from './validateConfig.js';
+import InvalidOptionError from '../errors/arguments/InvalidOptionError.js';
+import ExitCodeConstants from '../errors/ExitCodeConstants.js';
 
 export default function parseConfig(cipherConfig) {
     const ciphers = [];
@@ -22,7 +24,10 @@ export default function parseConfig(cipherConfig) {
                 ciphers.push(new ROT8Transform(Boolean(Number(encodingFlag))));
                 break;
             default:
-                throw new Error(`Invalid cipher character: ${cipherChar}`);
+                throw new InvalidOptionError(
+                    `Cipher "${cipherChar}" is not supported.`,
+                    ExitCodeConstants.INVALID_ARGUMENT
+                );
         }
     }
     return ciphers;
