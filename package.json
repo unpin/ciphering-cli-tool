@@ -17,5 +17,8 @@
     "bugs": {
         "url": "https://github.com/unpin/rs-school-nodejs/issues"
     },
-    "homepage": "https://github.com/unpin/rs-school-nodejs#readme"
+    "homepage": "https://github.com/unpin/rs-school-nodejs#readme",
+    "devDependencies": {
+        "jest": "^27.3.1"
+    }
 }
