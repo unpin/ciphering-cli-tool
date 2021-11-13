@@ -7,8 +7,8 @@ import ExitCodeConstants from '../errors/ExitCodeConstants.js';
 
 export default function parseConfig(cipherConfig) {
     const ciphers = [];
+    validateConfig(cipherConfig);
     const options = cipherConfig.split('-');
-    validateConfig(options);
     for (const option of options) {
         const [cipherChar, encodingFlag] = option;
         switch (cipherChar) {
