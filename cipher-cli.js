@@ -1,8 +1,7 @@
 import { pipeline } from 'stream';
 import { parser as argParser } from './src/arg-parser/parser.js';
 import parseConfig from './src/config/parseConfig.js';
-import FileReader from './src/streams/FileReader.js';
-import FileWriter from './src/streams/FileWriter.js';
+import * as createStream from './src/streams/createStream.js';
 import ExitCodeConstants from './src/errors/ExitCodeConstants.js';
 import IOError from './src/errors/io/IOError.js';
 import ArgumentError from './src/errors/arguments/ArgumentError.js';
@@ -29,46 +28,45 @@ const supportedOptions = [
     },
 ];
 
-function app(args) {
+function app(args, supportedOptions) {
     try {
         const streamArray = [];
         const { config, input, output } = argParser(args, {
             supportedOptions,
         });
         const transformStreams = parseConfig(config);
-        if (input) {
-            streamArray.push(new FileReader(input));
-        } else {
-            streamArray.push(process.stdin);
-            console.log('Enter text:');
-        }
+        streamArray.push(
+            createStream.createFileInputStream(input, process.stdin)
+        );
         streamArray.push(...transformStreams);
-        if (output) {
-            streamArray.push(new FileWriter(output));
-        } else {
-            streamArray.push(process.stdout);
-        }
+        streamArray.push(
+            createStream.createFileOutputStream(output, process.stdout)
+        );
         pipeline(...streamArray, pipelineErrorHandler);
     } catch (error) {
-        pipelineErrorHandler(error);
+        console.error(error.message);
+        if (
+            error instanceof ArgumentError ||
+            error instanceof InvalidConfigError
+        ) {
+            process.exitCode =
+                error.errorCode ?? ExitCodeConstants.INVALID_ARGUMENT;
+        } else {
+            process.exitCode = ExitCodeConstants.UNKNOWN_ERROR;
+        }
     }
 }
 
 function pipelineErrorHandler(error) {
     if (!error) return;
-    if (
-        error instanceof IOError ||
-        error instanceof ArgumentError ||
-        error instanceof InvalidConfigError
-    ) {
-        console.error(error.message);
+    console.error(error.message);
+    if (error instanceof IOError) {
         process.exitCode =
-            error.errorCode || ExitCodeConstants.INVALID_ARGUMENT;
+            error.errorCode ?? ExitCodeConstants.INVALID_ARGUMENT;
     } else {
-        console.error(error);
         process.exitCode = ExitCodeConstants.UNKNOWN_ERROR;
     }
 }
 
 const args = process.argv.slice(2);
-app(args);
+app(args, supportedOptions);
