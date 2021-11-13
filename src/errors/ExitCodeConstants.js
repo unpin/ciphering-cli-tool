@@ -1,6 +1,6 @@
 const EXIT_CODES = {
     OK: 0,
-    UncaughtFatalException: 1,
+    UNCAUGHT_EXCEPTION: 1,
     INVALID_ARGUMENT: 9,
     UNKNOWN_ERROR: 255,
 };
