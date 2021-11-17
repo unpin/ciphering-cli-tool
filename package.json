@@ -5,7 +5,7 @@
     "main": "cipher-cli.js",
     "type": "module",
     "scripts": {
-        "start": "node cipher-cli.js -c C1-R1-A -i ./input.txt -o ./output.txt",
+        "start": "node index.js -c C1-R1-A -i ./input.txt -o ./output.txt",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
     },
     "repository": {
