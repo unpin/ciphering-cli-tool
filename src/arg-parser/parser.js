@@ -18,9 +18,9 @@ export function parser(args, { supportedOptions } = {}) {
                 );
             }
 
-            if (!value || value.trim() === '') {
+            if (!value || value.trim() === '' || isOptionValid(value)) {
                 throw new ArgumentError(
-                    `Option ${option} requires a value.`,
+                    `Value for option "${option}" is not provided.`,
                     ExitCodeConstants.INVALID_ARGUMENT
                 );
             }
