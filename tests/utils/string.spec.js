@@ -7,21 +7,21 @@ import {
 
 describe('isUppercase() function', () => {
     test('should return true if passed char is uppercase', () => {
-        expect(isUpperCase('A')).toBe(true);
+        expect(isUpperCase('A')).toBeTruthy();
     });
 
     test('should return false if passed char is not uppercase', () => {
-        expect(isUpperCase('a')).toBe(false);
+        expect(isUpperCase('a')).toBeFalsy();
     });
 });
 
 describe('isLetter() function', () => {
     test('should return true if passed char is a letter', () => {
-        expect(isLetter('a')).toBe(true);
+        expect(isLetter('a')).toBeTruthy();
     });
 
     test('should return false if passed char is not a letter', () => {
-        expect(isLetter('1')).toBe(false);
+        expect(isLetter('1')).toBeFalsy();
     });
 });
 
