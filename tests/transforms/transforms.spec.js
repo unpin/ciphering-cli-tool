@@ -1,9 +1,7 @@
 import { Readable, Writable, pipeline } from 'stream';
-import { jest } from '@jest/globals';
 import AtbashTransform from '../../src/transforms/AtbashTransform.js';
 import CaesarTransform from '../../src/transforms/CaesarTransform.js';
 import ROT8Transform from '../../src/transforms/ROT8Transform.js';
-import * as stringModule from '../../src/utils/string.js';
 
 class CharReader extends Readable {
     constructor(string) {
@@ -33,26 +31,6 @@ class StringStorage extends Writable {
 }
 
 describe('AtbashTransform', () => {
-    test('shift should be called once for every Latin letter', () => {
-        const mirrorLetterMock = jest.spyOn(stringModule, 'mirrorLetter');
-        pipeline(
-            new CharReader('AZazАЯая'),
-            new AtbashTransform(),
-            new StringStorage(),
-            (error) => {
-                try {
-                    expect(error).toBeUndefined();
-                    expect(storage.data).toBe('ZAzaАЯая');
-                    done();
-                } catch (error) {
-                    done(error);
-                }
-            }
-        );
-        expect(mirrorLetterMock).toHaveBeenCalledTimes(4);
-        // mirrorLetterMock.mockRestore();
-    });
-
     it('should return a string with Latin chars mirrored', (done) => {
         const storage = new StringStorage();
         pipeline(
