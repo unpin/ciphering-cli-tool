@@ -33,7 +33,7 @@ class StringStorage extends Writable {
 }
 
 describe('AtbashTransform', () => {
-    it('should call mirrorLetter for every Latin letter', (done) => {
+    it('should call mirrorLetter for each letter', (done) => {
         const mirrorLetterMock = jest.spyOn(string, 'mirrorLetter');
         mirrorLetterMock.mockImplementation((letter) => letter + letter);
         const storage = new StringStorage();
@@ -43,7 +43,7 @@ describe('AtbashTransform', () => {
             storage,
             (error) => {
                 try {
-                    expect(mirrorLetterMock).toHaveReturnedTimes(4);
+                    expect(mirrorLetterMock).toHaveBeenCalledTimes(8);
                 } catch (error) {
                     console.log(error);
                 }
