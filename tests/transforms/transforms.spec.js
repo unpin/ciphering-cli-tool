@@ -31,6 +31,22 @@ class StringStorage extends Writable {
 }
 
 describe('AtbashTransform', () => {
+    it('should call mirrorLetter for every Latin letter', (done) => {
+        const mirrorLetterMock = jest.spyOn(string, 'mirrorLetter');
+        mirrorLetterMock.mockImplementation((letter) => letter + letter);
+        const storage = new StringStorage();
+        pipeline(
+            new CharReader('AZazАЯая'),
+            new AtbashTransform(),
+            storage,
+            (error) => {
+                expect(mirrorLetterMock).toHaveBeenCalled();
+                mirrorLetterMock.mockRestore();
+                done();
+            }
+        );
+    });
+
     it('should return a string with Latin chars mirrored', (done) => {
         const storage = new StringStorage();
         pipeline(
