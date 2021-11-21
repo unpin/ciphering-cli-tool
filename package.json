@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "node index.js -c C1-R1-A -i ./input.txt -o ./output.txt",
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+        "test": "jest --coverage"
     },
     "repository": {
         "type": "git",
@@ -20,6 +20,22 @@
     },
     "homepage": "https://github.com/unpin/rs-school-nodejs#readme",
     "devDependencies": {
+        "@babel/plugin-transform-modules-commonjs": "^7.16.0",
         "jest": "^27.3.1"
+    },
+    "jest": {
+        "verbose": true,
+        "collectCoverageFrom": [
+            "src/**/*.js"
+        ]
+    },
+    "babel": {
+        "env": {
+            "test": {
+                "plugins": [
+                    "@babel/plugin-transform-modules-commonjs"
+                ]
+            }
+        }
     }
 }
