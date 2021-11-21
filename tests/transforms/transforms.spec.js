@@ -1,7 +1,9 @@
+import { jest } from '@jest/globals';
 import { Readable, Writable, pipeline } from 'stream';
 import AtbashTransform from '../../src/transforms/AtbashTransform.js';
 import CaesarTransform from '../../src/transforms/CaesarTransform.js';
 import ROT8Transform from '../../src/transforms/ROT8Transform.js';
+import * as string from '../../src/utils/string.js';
 
 class CharReader extends Readable {
     constructor(string) {
@@ -40,7 +42,11 @@ describe('AtbashTransform', () => {
             new AtbashTransform(),
             storage,
             (error) => {
-                expect(mirrorLetterMock).toHaveBeenCalled();
+                try {
+                    expect(mirrorLetterMock).toHaveReturnedTimes(4);
+                } catch (error) {
+                    console.log(error);
+                }
                 mirrorLetterMock.mockRestore();
                 done();
             }
