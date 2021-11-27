@@ -5,7 +5,8 @@
     "main": "cipher-cli.js",
     "type": "module",
     "scripts": {
-        "start": "node cipher-cli.js -c C1-R1-A -i ./input.txt -o ./output.txt"
+        "start": "node index.js -c C1-R1-A -i ./input.txt -o ./output.txt",
+        "test": "jest --coverage"
     },
     "repository": {
         "type": "git",
@@ -17,5 +18,24 @@
     "bugs": {
         "url": "https://github.com/unpin/rs-school-nodejs/issues"
     },
-    "homepage": "https://github.com/unpin/rs-school-nodejs#readme"
+    "homepage": "https://github.com/unpin/rs-school-nodejs#readme",
+    "devDependencies": {
+        "@babel/plugin-transform-modules-commonjs": "^7.16.0",
+        "jest": "^27.3.1"
+    },
+    "jest": {
+        "verbose": true,
+        "collectCoverageFrom": [
+            "src/**/*.js"
+        ]
+    },
+    "babel": {
+        "env": {
+            "test": {
+                "plugins": [
+                    "@babel/plugin-transform-modules-commonjs"
+                ]
+            }
+        }
+    }
 }

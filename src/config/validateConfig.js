@@ -31,11 +31,6 @@ export default function validateConfig(configString) {
     const optionsArray = configString.split('-');
     for (const option of optionsArray) {
         const [cipherChar, encodingFlag] = option;
-        if (!cipherChar)
-            throw new InvalidConfigError(
-                'Invalid configuration string provided.'
-            );
-
         const cipher = SUPPORTED_TRANSFORM_STREAMS.find(
             (c) => c.cipherChar === cipherChar
         );

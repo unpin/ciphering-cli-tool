@@ -42,10 +42,10 @@ Options
 ### Example
 
 ```bash
-node cipher-cli.js -c "C1-A-R0" -i ./path/to/file -o ./path/to/file
-node cipher-cli.js -c "C1-A-R0" -i ./path/to/file
-node cipher-cli.js -c "C1-A-R0" -o ./path/to/file
-node cipher-cli.js -c "C0-R1-A"
+node index.js -c "C1-A-R0" -i ./path/to/file -o ./path/to/file
+node index.js -c "C1-A-R0" -i ./path/to/file
+node index.js -c "C1-A-R0" -o ./path/to/file
+node index.js -c "C0-R1-A"
 ```
 
 > Note: `-c [--config]` option is <b>required</b>, the application will be terminated with a non-zero exit status if not provided. `-i [--input]` and `-o [--output]` are optional and standard `process.stdin` and `process.stdout` streams will be used instead if respective options are not provided.

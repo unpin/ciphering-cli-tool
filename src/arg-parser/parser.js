@@ -18,9 +18,9 @@ export function parser(args, { supportedOptions } = {}) {
                 );
             }
 
-            if (!value || value.trim() === '') {
+            if (!value || value.trim() === '' || isOptionValid(value)) {
                 throw new ArgumentError(
-                    `Option ${option} requires a value.`,
+                    `Value for option "${option}" is not provided.`,
                     ExitCodeConstants.INVALID_ARGUMENT
                 );
             }
@@ -73,7 +73,7 @@ export function parser(args, { supportedOptions } = {}) {
         for (const option of requiredOptions) {
             if (!optionMap.has(option.name)) {
                 throw new ArgumentError(
-                    `"The "--${option.name}" option is required but not provided.`
+                    `The "--${option.name}" option is required but not provided.`
                 );
             }
         }
